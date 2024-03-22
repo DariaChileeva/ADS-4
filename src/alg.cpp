@@ -54,8 +54,8 @@ int cbinsearch(int *arr, int size, int value) {
 int countPairs3(int *arr, int len, int value) {
     int counter, k = 0;
     while (arr[k] <= (value / 2) - 1) {
-        int iPer = value - arr[k];
-        counter += cbinsearch(arr, len, iPer);
+        int perem = value - arr[k];
+        counter += cbinsearch(arr, len, perem);
         k++;
     }
     int mid = cbinsearch(arr, len, value / 2);
