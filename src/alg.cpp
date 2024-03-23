@@ -1,17 +1,17 @@
 // Copyright 2021 NNTU-CS
 int countPairs1(int *arr, int len, int value) {
-    int counter = 0;
+    int count = 0;
     for (int i = 0; i < len; ++i) {
         for (int j = i + 1; j < len; ++j) {
             if (arr[i] + arr[j] == value) {
-                counter++;
+                count++;
             }
         }
     }
-    return counter;
+    return count;
 }
 int countPairs2(int *arr, int len, int value) {
-    int counter = 0;
+    int count = 0;
     int right = len - 1;
     while (arr[right] > value) {
         right = right - 1;
@@ -19,36 +19,36 @@ int countPairs2(int *arr, int len, int value) {
     for (int i = 0; i < right; i++) {
         for (int j = right; j > i; j--) {
             if (arr[i] + arr[j] == value) {
-                counter++;
+                count++;
             }
         }
     }
-    return counter;
+    return count;
 }
 int cbinsearch(int *arr, int size, int value) {
-    int left = 0, counter = 0, right = size - 1;
+    int left = 0, count = 0, right = size - 1;
     while (left <= right) {
-        int mid = (left + right) / 2;
+        int mid = left + (right - left) / 2;
         if (arr[mid] < value) {
-            left = mid + 1;
-        } else if (arr[mid] > value) {
-            right = mid - 1;
-        } else {
-            counter++;
+            count++;
             int iPer = mid - 1;
-            mid++;
-            while (arr[mid] == value) {
-                counter++;
-                mid++;
-            }
-            while (arr[iPer] == value) {
-                counter++;
+            while (iPer >= 0 && arr[iPer] == value) {
+                count++;
                 iPer--;
             }
+            iPer = mid + 1;
+            while (iPer < size && arr[iPer] == value) {
+                count++;
+                iPer++;
+            }
             break;
+        } else if (arr[mid] < value) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
         }
     }
-    return counter;
+    return count;
 }
 int countPairs3(int *arr, int len, int value) {
     int bPer = 0;
